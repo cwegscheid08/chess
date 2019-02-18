@@ -8,8 +8,8 @@ class Game
 
 	def initialize(player_1, player_2 = "computer")
 		@p1_turn = true
-		player_1 == "computer" ? @player_1 = Computer.new(player_1, "O") : @player_1 = Human.new(player_1)
-		player_2 == "computer" ? @player_2 = Computer.new(player_2) : @player_2 = Human.new(player_2)
+		player_1 == "computer" ? @player_1 = Computer.new(player_1, "Black") : @player_1 = Human.new(player_1, "Black")
+		player_2 == "computer" ? @player_2 = Computer.new(player_2, "Red") : @player_2 = Human.new(player_2, "Red")
 		@board = Board.new
 	end
 

@@ -1,9 +1,10 @@
 class Computer
-	attr_accessor :name, :game_piece
+	attr_accessor :name, :side_color
 
-	def initialize(name, game_piece = "X")
+	def initialize(name, side_color)
 		@name = name
 		# @game_piece = game_piece
+		@side_color = side_color
 	end
 
 	def guess

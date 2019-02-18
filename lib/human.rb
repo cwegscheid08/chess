@@ -1,9 +1,10 @@
 class Human
-	attr_accessor :name, :game_piece
+	attr_accessor :name, :side_color
 
-	def initialize(name, game_piece = nil)
+	def initialize(name, side_color)
 		@name = name
-		game_piece.nil? ? @game_piece = get_game_piece : @game_piece = game_piece
+		# game_piece.nil? ? @game_piece = get_game_piece : @game_piece = game_piece
+		@side_color = side_color
 	end
 
 	def guess
@@ -17,8 +18,8 @@ class Human
 		end
 	end
 
-	def get_game_piece
-		@game_piece = @name[0].upcase
-	end
+	# def get_game_piece
+	# 	@game_piece = @name[0].upcase
+	# end
 
 end
