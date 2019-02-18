@@ -21,7 +21,7 @@ Board already builds an appropriately size board, where a cell marked [0,0]-[7,7
 
 #### GAME
 
-Game will have to contain the rules for total game play as well as finishing. Both the round and game_over? method will need some work to fit in the rules of chess.  Save state rules will also be held here so that the most aspects of the application will be in view.
+Game will have to contain the rules for total game play as well as finishing. Both the round and game_over? method will need some work to fit in the rules of chess.  Save state rules will also be held here so that the most aspects of the application will be in view. Within the Game class, player_1 and player_2 will have to be each assigned either white or black as a color, to differentiate game_piece sets.
 
 #### HUMAN
 
@@ -36,4 +36,28 @@ Will house the name of the computer player as well as randomize and format a cel
 Houses parent information for each following GamePiece, as well as instructions for creation of a tree of available moves based on the move_set in the individual GamePiece class.
 
 
+### TESTING
+
+#### BOARD
+#####DISPLAY
+#####CHECK?
+#####CHECK_MATE? 
+
+#### GAME
+#####PLAYER_1
+#####PLAYER_2
+#####GAME_OVER?
+#####ROUND
+
+#### HUMAN
+#####MOVE
+#####NAME
+#####PLAYER_SET
+
+#### COMPUTER
+#####MOVE
+#####NAME
+#####PLAYER_SET
+
+#### GAME_PIECES
 
