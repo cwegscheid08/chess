@@ -1,9 +1,11 @@
 class Board
-	attr_accessor :board, :pieces
+	attr_accessor :board, :pieces, :player_1, :player_2
 	require './lib/game_pieces.rb'
 
 
-	def initialize
+	def initialize(player_1, player_2)
+		@player_1 = player_1
+		@player_2 = player_2
 		@board = build_board
 		set_game_pieces
 	end
