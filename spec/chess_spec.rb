@@ -12,7 +12,7 @@ RSpec.describe Human do
 		@human = Human.new("Chris", "Black")
 	end
 
-	context "Sets a new human players with the name Chris." do
+	context "Sets a new human players with the name Chris" do
 		describe "#name" do
 			it "returns the player's name." do
 				expect(@human.name).to eql("Chris")
@@ -24,7 +24,7 @@ RSpec.describe Human do
 		end
 
 		describe "#move" do
-			context "should move a game piece to one it's next AVAILABLE jumps." do
+			context "should move a game piece to one it's next AVAILABLE jumps" do
 				it "returns true if that piece can move to that space next." do
 					expect(@human.move(knight_1, [0,2])).to be_truthy
 				end
@@ -116,15 +116,15 @@ RSpec.describe Board do
 	end
 
 	context "This object is a 8x8 matrix representing a chess board." do
-		describe "#display" do
-			it "display's the board data into a human readable chess board." do
-				expect(@board.display).to eql(
+		# describe "#display" do
+		# 	it "display's the board data into a human readable chess board." do
+		# 		expect(@board.display).to eql(
 
-					# BUILD BOARD DISPLAY IN HERE
+		# 			# BUILD BOARD DISPLAY IN HERE
 
-					)
-			end
-		end
+		# 			)
+		# 	end
+		# end
 
 
 
@@ -138,9 +138,9 @@ RSpec.describe GamePieces do
 		@game_pieces = GamePieces.new
 	end
 
-	context "Parent class containing methods for each individual game piece." do
-		describe "# " do
+	# context "Parent class containing methods for each individual game piece." do
+	# 	describe "# " do
 
-		end
-	end
+	# 	end
+	# end
 end

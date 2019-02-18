@@ -1,9 +1,14 @@
 class Knight < GamePieces
-	attr_reader :move_type
+	attr_reader :move_type, :icon
 
 	def initialize(location)
 		super
 		@move_type = [[2,1],[2,-1],[-2,1],[-2,-1],[1,2],[-1,2],[1,-2],[-1,-2]]
+		@icon = set_icon
+	end
+
+	def set_icon
+		return "K"
 	end
 
 	def knight_moves(destination)
