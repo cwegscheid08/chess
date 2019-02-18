@@ -27,9 +27,11 @@ class Board
 	end
 
 	def display
-		@board.each do |key, value|
-			puts "\nKEY:#{key} VALUE:#{value}\n"
-			puts
+		puts " _______________________________"
+		8.times do 
+			print "|   |   |   |   |   |   |   |   |\n"
+			print "|   |   |   |   |   |   |   |   |\n"
+			print "|___|___|___|___|___|___|___|___|\n"
 		end
 	end
 
