@@ -62,6 +62,8 @@ class Game
 			filename = "file_save/#{player.name.downcase}_#{Time.new.usec}.yaml"
 		end
 
+		# AREA FOR INPUTTING GAME SAVE CHARACTERISTICS
+
 		data = YAML::dump ({
 			:player_name => player.name,
 			:past_guesses => board.past_letters,
@@ -91,6 +93,8 @@ class Game
 		if File.exist?("./file_save/#{previous_save}.yaml")
 			data = YAML::load(File.read("./file_save/#{previous_save}.yaml"))
 
+			# AREA FOR INPUTTING GAME SAVE CHARACTERISTICS
+			
 			player.name = data[:player_name]
 			board.guessed = data[:past_guesses]
 			board.body = data[:board]
