@@ -1,7 +1,7 @@
 class GamePieces
 	attr_reader :location, :move_type, :next_available_move, :knight_1, :knight_2
 
-	require './lib/knight.rb'
+	require './lib/pieces/knight.rb'
 
 	def initialize(location = nil)
 		@location = location

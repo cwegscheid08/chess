@@ -8,7 +8,7 @@ class Knight < GamePieces
 	end
 
 	def set_icon
-		return "k"
+		return "K"
 	end
 
 	def move_to(destination)
