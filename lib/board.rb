@@ -59,6 +59,7 @@ class Board
 	end
 
 	def set_board
-		@board["Row #{@pieces.knight.location[0]}"][@pieces.knight.location] = @pieces.knight
+		@board["Row #{@pieces.knight_1.location[0]}"][@pieces.knight_1.location] = @pieces.knight_1
+		@board["Row #{@pieces.knight_2.location[0]}"][@pieces.knight_2.location] = @pieces.knight_2
 	end
 end
