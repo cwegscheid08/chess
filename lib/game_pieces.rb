@@ -1,5 +1,5 @@
 class GamePieces
-	attr_reader :location, :move_type, :knight, :next_available_move
+	attr_reader :location, :move_type, :next_available_move, :knight_1, :knight_2
 
 	require './lib/knight.rb'
 
@@ -81,7 +81,8 @@ class GamePieces
 	end
 
 	def place_pieces
-		@knight = Knight.new([3,3])
+		@knight_1 = Knight.new([0,2])
+		@knight_2 = Knight.new([0,5])
 	end
 
 end
