@@ -1,11 +1,20 @@
 class GamePieces
-	attr_reader :location, :move_type, :next_available_move, :knight_1, :knight_2
+	attr_reader :location, :move_type, :next_available_move, :knight_1, :knight_2, :pawn_1
 
 	require './lib/pieces/knight.rb'
+	require './lib/pieces/pawn.rb'
+	require './lib/pieces/bishop.rb'
+	require './lib/pieces/rook.rb'
+	require './lib/pieces/queen.rb'
+	require './lib/pieces/king.rb'
 
 	def initialize(location = nil)
 		@location = location
 		@move_type = move_type
+	end
+
+	def each_piece
+		return [@knight_1, @knight_2, @pawn_1]
 	end
 
 	def display_path(path)
@@ -83,6 +92,7 @@ class GamePieces
 	def place_pieces
 		@knight_1 = Knight.new([0,2])
 		@knight_2 = Knight.new([0,5])
+		@pawn_1 = Pawn.new([1,0])
 	end
 
 end
