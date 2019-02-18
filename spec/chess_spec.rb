@@ -6,12 +6,25 @@ require './lib/game_pieces.rb'
 require './lib/knight.rb'
 
 
-RSpec.describe GamePieces do
+RSpec.describe Human do
 	before do
-		@game_pieces = GamePieces.new
+		@human = Human.new("Chris")
+	end
+
+	context "Sets a new human players with the name Chris." do
+		describe "#name" do
+			it "returns the player's name." do
+				expect(@human.name).to eql("Chris")
+			end
+		end
+
+		describe "#move" do
+			it "should move a game piece to one it's next AVAILABLE jumps." do
+				expect(@human.move(knight, [0,2])).to be_truthy
+			end
+		end
 	end
 end
-
 
 RSpec.describe Computer do
 	before do
@@ -39,5 +52,12 @@ RSpec.describe Game do
 				expect(@game.player_1.class).to eql(Computer)
 			end
 		end
+	end
+end
+
+
+RSpec.describe GamePieces do
+	before do
+		@game_pieces = GamePieces.new
 	end
 end
