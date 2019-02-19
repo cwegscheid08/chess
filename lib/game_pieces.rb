@@ -1,5 +1,5 @@
 class GamePieces
-	attr_reader :location, :move_type, :next_available_move, :knight_1, :knight_2, :pawn_1, :pawn_2, :pawn_3, :pawn_4, :pawn_5, :pawn_6, :pawn_7, :pawn_8, :bishop_1, :bishop_2, :rook_1, :rook_2, :queen, :king
+	attr_reader :location, :color, :move_type, :next_available_move, :knight_1, :knight_2, :pawn_1, :pawn_2, :pawn_3, :pawn_4, :pawn_5, :pawn_6, :pawn_7, :pawn_8, :bishop_1, :bishop_2, :rook_1, :rook_2, :queen, :king
 
 	require './lib/pieces/knight.rb'
 	require './lib/pieces/pawn.rb'
@@ -8,7 +8,8 @@ class GamePieces
 	require './lib/pieces/queen.rb'
 	require './lib/pieces/king.rb'
 
-	def initialize(location = nil)
+	def initialize(location = nil, color = "red")
+		@color = color
 		@location = location
 		@move_type = move_type
 	end

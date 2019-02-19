@@ -8,7 +8,7 @@ class Rook < GamePieces
 	end
 
 	def set_icon
-		return "R"
+		return @color == "black" ? "\u265C".encode('utf-8') : "\u2656".encode('utf-8')
 	end
 
 	def move_to(destination)

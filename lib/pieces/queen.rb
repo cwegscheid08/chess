@@ -8,7 +8,7 @@ class Queen < GamePieces
 	end
 
 	def set_icon
-		return "Q"
+		return @color == "black" ? "\u265B".encode('utf-8') : "\u2655".encode('utf-8')
 	end
 
 	def move_to(destination)

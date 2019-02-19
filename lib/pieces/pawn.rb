@@ -8,7 +8,7 @@ class Pawn < GamePieces
 	end
 
 	def set_icon
-		return "P"
+		return @color == "black" ? "\u265F".encode('utf-8') : "\u2659".encode('utf-8')
 	end
 
 	def move_to(destination)

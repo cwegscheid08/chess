@@ -8,7 +8,7 @@ class Bishop < GamePieces
 	end
 
 	def set_icon
-		return "B"
+		return @color == "black" ? "\u265D".encode('utf-8') : "\u2657".encode('utf-8')
 	end
 
 	def move_to(destination)
