@@ -59,12 +59,11 @@ class Board
 	end
 
 	def set_board(pieces)
-		# @board["Row #{@pieces.knight_1.location[0]}"][@pieces.knight_1.location] = @pieces.knight_1
-		# @board["Row #{@pieces.knight_2.location[0]}"][@pieces.knight_2.location] = @pieces.knight_2
-		# @board["Row #{@pieces.pawn_1.location[0]}"][@pieces.pawn_1.location] = @pieces.pawn_1
-		# puts "PIECES:#{pieces}"
 		pieces.each do |piece|
-			@board["Row #{piece.location[0]}"][piece.location] = piece
+			if !piece.nil?
+				@board["Row #{piece.location[0]}"][piece.location] = piece
+			end
 		end
+		display
 	end
 end

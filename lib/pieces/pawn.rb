@@ -3,7 +3,7 @@ class Pawn < GamePieces
 
 	def initialize(location)
 		super
-		@move_type = [[0,1]]
+		@move_type = [[1,0]]
 		@icon = set_icon
 	end
 
