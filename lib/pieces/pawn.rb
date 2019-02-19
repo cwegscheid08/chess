@@ -1,7 +1,7 @@
 class Pawn < GamePieces
 	attr_reader :move_type, :icon
 
-	def initialize(location)
+	def initialize(location, color)
 		super
 		@move_type = [[1,0]]
 		@icon = set_icon

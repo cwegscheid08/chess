@@ -1,7 +1,7 @@
 class Queen < GamePieces
 	attr_reader :move_type, :icon
 
-	def initialize(location)
+	def initialize(location, color)
 		super
 		@move_type = [[2,1],[2,-1],[-2,1],[-2,-1],[1,2],[-1,2],[1,-2],[-1,-2]]
 		@icon = set_icon
