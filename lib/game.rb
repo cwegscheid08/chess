@@ -25,7 +25,7 @@ class Game
 	end
 
 	def game_over?
-		@board.four_in_a_row?
+		@board.check_mate?
 	end
 
 	def player_wins

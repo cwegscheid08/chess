@@ -8,7 +8,7 @@ class Knight < GamePieces
 	end
 
 	def set_icon
-		return "K"
+		return "\u2658".encode('utf-8')
 	end
 
 	def move_to(destination)

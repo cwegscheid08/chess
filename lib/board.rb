@@ -28,7 +28,13 @@ class Board
 		@board = column
 	end
 
+	def slider(cell)
+		@board["Row #{cell[0]}"][cell]
+	end
 
+	def check_mate?
+
+	end
 
 	def display
 		puts " _______________________________"

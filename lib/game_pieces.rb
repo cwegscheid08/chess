@@ -60,6 +60,7 @@ class GamePieces
 			end
 	
 			if temp_spot[0] == destination[0] && temp_spot[1] == destination[1]
+				# @next_available_move = trail
 				set_moves
 				path = set_path(destination)
 				display_path(path)
