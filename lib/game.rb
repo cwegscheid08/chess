@@ -29,6 +29,7 @@ class Game
 
 	def game_over?
 		@board.checkmate?
+		true
 	end
 
 	def player_wins

@@ -9,10 +9,10 @@ class Computer
 		set_game_pieces
 	end
 
-	def move
+	def move(piece = nil, cell = nil)
 		puts "\n\nI'M THINKING...\n"
-		sleep(1)
-		return rand(1..7)
+		# sleep(1)
+		
 	end
 
 	def randomizer
@@ -22,6 +22,5 @@ class Computer
 	def set_game_pieces
 		@pieces = GamePieces.new()
 		@pieces.place_pieces(@side_color)
-		# set_board(@pieces.each_piece)
 	end
 end

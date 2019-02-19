@@ -7,8 +7,7 @@ class Board
 		@player_1 = player_1
 		@player_2 = player_2
 		@board = build_board
-		set_board(@player_1.pieces.each_piece, @player_2.pieces.each_piece)
-		# set_board(@player_2.pieces.each_piece)
+		set_board
 	end
 
 	def build_board
@@ -63,21 +62,14 @@ class Board
 		end
 	end
 
-	# def set_game_pieces
-	# 	@pieces = GamePieces.new()
-	# 	@pieces.place_pieces
-	# 	set_board(@pieces.each_piece)
-	# end
-
-	def set_board(*pieces)
-		# puts "PIECES:#{pieces}"
-		pieces[0].each do |piece|
+	def set_board
+		@player_1.pieces.each_piece.each do |piece|
 			puts "PIECE:#{piece}\n\n"
 			if !piece.nil?
 				@board["Row #{piece.location[0]}"][piece.location] = piece
 			end
 		end
-		pieces[1].each do |piece|
+		@player_2.pieces.each_piece.each do |piece|
 			puts "PIECE:#{piece}\n\n"
 			if !piece.nil?
 				@board["Row #{piece.location[0]}"][piece.location] = piece

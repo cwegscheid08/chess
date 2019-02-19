@@ -15,7 +15,7 @@ class GamePieces
 	end
 
 	def each_piece
-		return [@knight_1, @knight_2, @pawn_1, @pawn_2, @pawn_3, @pawn_4, @pawn_5, @pawn_6, @pawn_7, @pawn_8, @bishop_1, @bishop_2, @rook_1, @rook_2, @queen, @king]
+		return [@pawn_1, @pawn_2, @pawn_3, @pawn_4, @pawn_5, @pawn_6, @pawn_7, @pawn_8, @knight_1, @knight_2, @bishop_1, @bishop_2, @rook_1, @rook_2, @queen, @king]
 	end
 
 	def display_path(path)
@@ -81,7 +81,6 @@ class GamePieces
 	end
 
 	def set_moves
-		# puts "NEXT AVAILABLE MOVES:#{@next_available_move}"
 		@next_available_move.each do |key, value|
 			tmp = value
 			@next_available_move[key] = []
