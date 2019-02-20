@@ -96,7 +96,7 @@ class GamePieces
 
 	def place_pieces(color)
 		if color == "red"
-			puts "RED\n\n\n"
+			# puts "RED\n\n\n"
 			@pawn_1 = Pawn.new([1,0], color)
 			@pawn_2 = Pawn.new([1,1], color)
 			@pawn_3 = Pawn.new([1,2], color)
@@ -114,7 +114,7 @@ class GamePieces
 			@queen = Queen.new([0,3], color)
 			@king = King.new([0,4], color)
 		else
-			puts "BLACK\n\n\n"
+			# puts "BLACK\n\n\n"
 			@pawn_1 = Pawn.new([6,0], color)
 			@pawn_2 = Pawn.new([6,1], color)
 			@pawn_3 = Pawn.new([6,2], color)

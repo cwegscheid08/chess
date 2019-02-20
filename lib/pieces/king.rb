@@ -3,7 +3,7 @@ class King < GamePieces
 
 	def initialize(location, color)
 		super
-		@move_type = [[2,1],[2,-1],[-2,1],[-2,-1],[1,2],[-1,2],[1,-2],[-1,-2]]
+		@move_type = [[-1,1],[0,1],[1,1],[1,0],[1,-1],[0,-1],[-1,-1],[-1,0]]
 		@icon = set_icon
 	end
 

@@ -12,7 +12,6 @@ class Pawn < GamePieces
 	end
 
 	def set_move_type
-		# puts "COLOR:#{@color}"
 		@color == "red" ? @move_type = [[1,0]] : @move_type = [[-1,0]]
 	end
 
