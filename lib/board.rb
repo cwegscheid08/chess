@@ -29,8 +29,11 @@ class Board
 	end
 
 	def slider(cell)
-		puts "CELL:#{cell}"
 		return @board["Row #{cell[0]}"][cell] 
+	end
+
+	def delete(cell)
+		return @board["Row #{cell[0]}"][cell] = nil
 	end
 
 	def check?
@@ -40,6 +43,8 @@ class Board
 	def checkmate?
 		false
 	end
+
+
 
 	def display
 		puts " _______________________________"

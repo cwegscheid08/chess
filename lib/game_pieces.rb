@@ -23,7 +23,7 @@ class GamePieces
 			if index == 0
 				puts "YOU JUMPED FROM #{jump} "
 			elsif index == path.size-1
-				# @location = jump
+				@location = jump
 				puts "TO #{jump}."
 			else
 				puts "TO #{jump} "
@@ -46,10 +46,10 @@ class GamePieces
 	end
 
 	def available_moves(destination, spot = @location, next_jumps = [], trail = {})
-		# puts "SPOT:#{spot} DESTINATION:#{destination}"
+		puts "SPOT:#{spot} DESTINATION:#{destination}"
 		return spot if spot[0] == destination[0] && spot[1] == destination[1]
 
-		# puts "MOVE TYPE:#{move_type}"
+		puts "MOVE TYPE:#{move_type}"
 
 		move_type.each do |jump|
 			temp_spot = []
@@ -96,6 +96,7 @@ class GamePieces
 
 	def place_pieces(color)
 		if color == "red"
+			puts "RED\n\n\n"
 			@pawn_1 = Pawn.new([1,0], color)
 			@pawn_2 = Pawn.new([1,1], color)
 			@pawn_3 = Pawn.new([1,2], color)
@@ -113,6 +114,7 @@ class GamePieces
 			@queen = Queen.new([0,3], color)
 			@king = King.new([0,4], color)
 		else
+			puts "BLACK\n\n\n"
 			@pawn_1 = Pawn.new([6,0], color)
 			@pawn_2 = Pawn.new([6,1], color)
 			@pawn_3 = Pawn.new([6,2], color)

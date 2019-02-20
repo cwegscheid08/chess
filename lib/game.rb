@@ -15,10 +15,11 @@ class Game
 
 	def round
 		@board.display
-
 		move = who_is_playing.move
 		puts "MOVE:#{move}"
 		@board.slider(move[0]).move_to(move[1])
+		@board.delete(move[0])
+		@board.set_board
 		
 		# guess = who_is_playing.guess
 		# move = who_is_playing.move

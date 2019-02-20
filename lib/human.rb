@@ -9,9 +9,9 @@ class Human
 	end
 
 	def move
-		# puts "#{@name.capitalize}, jump from which cell??"
+		puts "#{@name.capitalize}, jump from which cell??"
 		from = gets.chomp.split(" ")
-		# puts "to which cell??"
+		puts "to which cell??"
 		to = gets.chomp.split(" ")
 		from = [from, to]
 		# puts "FROM:#{from} TO:#{to}"
