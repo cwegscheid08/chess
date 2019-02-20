@@ -13,13 +13,14 @@ class Game
 		@board = Board.new(@player_1, @player_2)
 	end
 
-	def round
+	def round(move = nil)
 		@board.display
-		move = who_is_playing.move
+		move.nil? ? move = who_is_playing.move : ""
 		puts "MOVE:#{move}"
 		@board.slider(move[0]).move_to(move[1])
 		@board.delete(move[0])
 		@board.set_board
+		return @board.slider(move[1])
 		
 		# guess = who_is_playing.guess
 		# move = who_is_playing.move

@@ -17,7 +17,13 @@ class Bishop < GamePieces
 	end
 
 	def set_move_type
-		@move_type = [[-1,1],[1,1],[1,-1][-1,-1]]
+		tmp = [[-1,1],[1,1],[1,-1],[-1,-1]]
+
+		8.times do |x|
+			puts "X:#{x}"
+		end
+
+		return @move_type = tmp
 	end
 
 

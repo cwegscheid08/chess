@@ -17,14 +17,15 @@ class Queen < GamePieces
 	end
 
 	def set_move_type
-		moves = [[-1,1],[0,1],[1,1],[1,0],[0,-1],[-1,-1]]
+		@move_type = [[-1,1],[0,1],[1,1],[1,0],[0,-1],[-1,-1]]
 		8.times do |x|
-			tmp = moves
+			tmp = @move_type
 			tmp[0].each { |y| y+=x+1 }
 			puts "TMP:#{tmp}"
-			moves << tmp
-			return moves
+			# moves << tmp
+			
 		end
+		return @move_type
 	end
 
 
