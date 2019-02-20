@@ -9,7 +9,7 @@ class Computer
 		set_game_pieces
 	end
 
-	def move(piece = nil, cell = nil)
+	def move
 		puts "\n\nI'M THINKING...\n"
 		# sleep(1)
 		

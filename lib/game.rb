@@ -15,8 +15,11 @@ class Game
 
 	def round
 		@board.display
-		who_is_playing.move
 
+		move = who_is_playing.move
+		puts "MOVE:#{move}"
+		@board.slider(move[0]).move_to(move[1])
+		
 		# guess = who_is_playing.guess
 		# move = who_is_playing.move
 		# if !@board.column_full?("column_#{guess}")
@@ -29,7 +32,7 @@ class Game
 
 	def game_over?
 		@board.checkmate?
-		true
+		# true
 	end
 
 	def player_wins

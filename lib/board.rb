@@ -29,7 +29,8 @@ class Board
 	end
 
 	def slider(cell)
-		@board["Row #{cell[0]}"][cell]
+		puts "CELL:#{cell}"
+		return @board["Row #{cell[0]}"][cell] 
 	end
 
 	def check?
@@ -64,17 +65,16 @@ class Board
 
 	def set_board
 		@player_1.pieces.each_piece.each do |piece|
-			puts "PIECE:#{piece}\n\n"
+			# puts "PIECE:#{piece}\n\n"
 			if !piece.nil?
 				@board["Row #{piece.location[0]}"][piece.location] = piece
 			end
 		end
 		@player_2.pieces.each_piece.each do |piece|
-			puts "PIECE:#{piece}\n\n"
+			# puts "PIECE:#{piece}\n\n"
 			if !piece.nil?
 				@board["Row #{piece.location[0]}"][piece.location] = piece
 			end
 		end
-		display
 	end
 end

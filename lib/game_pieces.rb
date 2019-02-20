@@ -46,7 +46,10 @@ class GamePieces
 	end
 
 	def available_moves(destination, spot = @location, next_jumps = [], trail = {})
+		puts "SPOT:#{spot} DESTINATION:#{destination}"
 		return spot if spot[0] == destination[0] && spot[1] == destination[1]
+
+		puts "MOVE TYPE:#{move_type}"
 
 		move_type.each do |jump|
 			temp_spot = []
@@ -61,7 +64,7 @@ class GamePieces
 			end
 	
 			if temp_spot[0] == destination[0] && temp_spot[1] == destination[1]
-				# @next_available_move = trail
+				@next_available_move = trail
 				set_moves
 				path = set_path(destination)
 				display_path(path)

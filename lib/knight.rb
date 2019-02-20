@@ -14,6 +14,7 @@ class Knight < GamePieces
 	def move_to(destination)
 		moves = available_moves(destination)
 		puts "YOU'RE AT #{self.location}"
+		
 	end
 
 
