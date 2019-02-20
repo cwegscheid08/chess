@@ -10,22 +10,30 @@ class Game
 		@p1_turn = true
 		player_1 == "computer" ? @player_1 = Computer.new(player_1, "black") : @player_1 = Human.new(player_1, "black")
 		player_2 == "computer" ? @player_2 = Computer.new(player_2, "red") : @player_2 = Human.new(player_2, "red")
-		@board = Board.new(player_1, player_2)
+		@board = Board.new(@player_1, @player_2)
 	end
 
 	def round
 		@board.display
-		guess = who_is_playing.guess
-		if !@board.column_full?("column_#{guess}")
-			@board.place_piece(who_is_playing, guess)
-		else
-			puts "THIS COLUMN IS FULL\nPICK ANOTHER ONE\n\n"
-			round
-		end
+		move = who_is_playing.move
+		puts "MOVE:#{move}"
+		@board.slider(move[0]).move_to(move[1])
+		@board.delete(move[0])
+		@board.set_board
+		
+		# guess = who_is_playing.guess
+		# move = who_is_playing.move
+		# if !@board.column_full?("column_#{guess}")
+			# @board.place_piece(who_is_playing, guess)
+		# else
+			# puts "THIS COLUMN IS FULL\nPICK ANOTHER ONE\n\n"
+			# round
+		# end
 	end
 
 	def game_over?
-		@board.check_mate?
+		@board.checkmate?
+		# true
 	end
 
 	def player_wins
@@ -37,7 +45,7 @@ class Game
 	end
 
 	def start
-		until game_over? || @board.full?
+		until game_over? || @board.checkmate?
 			@p1_turn ? @p1_turn = false : @p1_turn = true
 			round
 		end

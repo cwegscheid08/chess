@@ -8,14 +8,14 @@ class GamePieces
 	require './lib/pieces/queen.rb'
 	require './lib/pieces/king.rb'
 
-	def initialize(location = nil, color = "red")
+	def initialize(location = nil, color = nil)
 		@color = color
 		@location = location
 		@move_type = move_type
 	end
 
 	def each_piece
-		return [@knight_1, @knight_2, @pawn_1, @pawn_2, @pawn_3, @pawn_4, @pawn_5, @pawn_6, @pawn_7, @pawn_8, @bishop_1, @bishop_2, @rook_1, @rook_2, @queen, @king]
+		return [@pawn_1, @pawn_2, @pawn_3, @pawn_4, @pawn_5, @pawn_6, @pawn_7, @pawn_8, @knight_1, @knight_2, @bishop_1, @bishop_2, @rook_1, @rook_2, @queen, @king]
 	end
 
 	def display_path(path)
@@ -23,7 +23,7 @@ class GamePieces
 			if index == 0
 				puts "YOU JUMPED FROM #{jump} "
 			elsif index == path.size-1
-				# @location = jump
+				@location = jump
 				puts "TO #{jump}."
 			else
 				puts "TO #{jump} "
@@ -46,7 +46,10 @@ class GamePieces
 	end
 
 	def available_moves(destination, spot = @location, next_jumps = [], trail = {})
+		puts "SPOT:#{spot} DESTINATION:#{destination}"
 		return spot if spot[0] == destination[0] && spot[1] == destination[1]
+
+		puts "MOVE TYPE:#{move_type}"
 
 		move_type.each do |jump|
 			temp_spot = []
@@ -61,7 +64,7 @@ class GamePieces
 			end
 	
 			if temp_spot[0] == destination[0] && temp_spot[1] == destination[1]
-				# @next_available_move = trail
+				@next_available_move = trail
 				set_moves
 				path = set_path(destination)
 				display_path(path)
@@ -81,7 +84,6 @@ class GamePieces
 	end
 
 	def set_moves
-		# puts "NEXT AVAILABLE MOVES:#{@next_available_move}"
 		@next_available_move.each do |key, value|
 			tmp = value
 			@next_available_move[key] = []
@@ -92,23 +94,43 @@ class GamePieces
 		end
 	end
 
-	def place_pieces
-		@pawn_1 = Pawn.new([1,0])
-		@pawn_2 = Pawn.new([1,1])
-		@pawn_3 = Pawn.new([1,2])
-		@pawn_4 = Pawn.new([1,3])
-		@pawn_5 = Pawn.new([1,4])
-		@pawn_6 = Pawn.new([1,5])
-		@pawn_7 = Pawn.new([1,6])
-		@pawn_8 = Pawn.new([1,7])
-		@knight_1 = Knight.new([0,1])
-		@knight_2 = Knight.new([0,6])
-		@bishop_1 = Bishop.new([0,2])
-		@bishop_2 = Bishop.new([0,5])
-		@rook_1 = Rook.new([0,0])
-		@rook_2 = Rook.new([0,7])
-		@queen = Queen.new([0,3])
-		@king = King.new([0,4])
+	def place_pieces(color)
+		if color == "red"
+			# puts "RED\n\n\n"
+			@pawn_1 = Pawn.new([1,0], color)
+			@pawn_2 = Pawn.new([1,1], color)
+			@pawn_3 = Pawn.new([1,2], color)
+			@pawn_4 = Pawn.new([1,3], color)
+			@pawn_5 = Pawn.new([1,4], color)
+			@pawn_6 = Pawn.new([1,5], color)
+			@pawn_7 = Pawn.new([1,6], color)
+			@pawn_8 = Pawn.new([1,7], color)
+			@knight_1 = Knight.new([0,1], color)
+			@knight_2 = Knight.new([0,6], color)
+			@bishop_1 = Bishop.new([0,2], color)
+			@bishop_2 = Bishop.new([0,5], color)
+			@rook_1 = Rook.new([0,0], color)
+			@rook_2 = Rook.new([0,7], color)
+			@queen = Queen.new([0,3], color)
+			@king = King.new([0,4], color)
+		else
+			# puts "BLACK\n\n\n"
+			@pawn_1 = Pawn.new([6,0], color)
+			@pawn_2 = Pawn.new([6,1], color)
+			@pawn_3 = Pawn.new([6,2], color)
+			@pawn_4 = Pawn.new([6,3], color)
+			@pawn_5 = Pawn.new([6,4], color)
+			@pawn_6 = Pawn.new([6,5], color)
+			@pawn_7 = Pawn.new([6,6], color)
+			@pawn_8 = Pawn.new([6,7], color)
+			@knight_1 = Knight.new([7,1], color)
+			@knight_2 = Knight.new([7,6], color)
+			@bishop_1 = Bishop.new([7,2], color)
+			@bishop_2 = Bishop.new([7,5], color)
+			@rook_1 = Rook.new([7,0], color)
+			@rook_2 = Rook.new([7,7], color)
+			@queen = Queen.new([7,3], color)
+			@king = King.new([7,4], color)
+		end
 	end
-
 end

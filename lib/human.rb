@@ -1,25 +1,27 @@
 class Human
-	attr_accessor :name, :side_color
+	attr_accessor :name, :side_color, :pieces
+	require './lib/game_pieces.rb'
 
 	def initialize(name, side_color)
 		@name = name
-		# game_piece.nil? ? @game_piece = get_game_piece : @game_piece = game_piece
 		@side_color = side_color
+		set_game_pieces
 	end
 
-	def guess
-		puts "#{name.capitalize}, where do you want to drop you piece?"
-		num = gets.chomp.to_i
-		if num > 0 && num < 8
-			return num
-		else
-			puts "It has to be between 1 and 7."
-			guess
-		end
+	def move
+		puts "#{@name.capitalize}, jump from which cell??"
+		from = gets.chomp.split(" ")
+		puts "to which cell??"
+		to = gets.chomp.split(" ")
+		from = [from, to]
+		# puts "FROM:#{from} TO:#{to}"
+		from.each { |x| x.map! { |y| y.to_i }}
+		# puts "FROM:#{from}"
+		return from
 	end
 
-	# def get_game_piece
-	# 	@game_piece = @name[0].upcase
-	# end
-
+	def set_game_pieces
+		@pieces = GamePieces.new()
+		@pieces.place_pieces(@side_color)
+	end
 end
