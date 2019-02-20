@@ -9,16 +9,15 @@ class Human
 	end
 
 	def move
-		puts "#{@name.capitalize}, jump from which cell??"
+		# puts "#{@name.capitalize}, jump from which cell??"
 		from = gets.chomp.split(" ")
-		puts "to which cell??"
+		# puts "to which cell??"
 		to = gets.chomp.split(" ")
 		from = [from, to]
-		puts "FROM:#{from} TO:#{to}"
+		# puts "FROM:#{from} TO:#{to}"
 		from.each { |x| x.map! { |y| y.to_i }}
-		puts "FROM:#{from}"
+		# puts "FROM:#{from}"
 		return from
-		# @pieces.piece.move_to(cell)
 	end
 
 	def set_game_pieces
