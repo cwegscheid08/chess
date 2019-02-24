@@ -3,7 +3,7 @@ class Rook < GamePieces
 
 	def initialize(location, color)
 		super
-		@move_type = [[2,1],[2,-1],[-2,1],[-2,-1],[1,2],[-1,2],[1,-2],[-1,-2]]
+		@move_type = set_move_type
 		@icon = set_icon
 	end
 
@@ -16,6 +16,27 @@ class Rook < GamePieces
 		puts "YOU'RE AT #{self.location}"
 	end
 
+	def set_move_type
+		@move_type = [[0,1],[1,0],[0,-1],[-1,0]]
+		tmp = [[0,1],[1,0],[0,-1],[-1,0]]
+		i = 0
+		6.times do |x|
+			tmp.each do |jump|
+				# puts "TMP:#{tmp[x][1]} X:#{x} JUMP:#{jump[0]}"
+				print "TMP:#{tmp}\n"
+				print "X:#{x}\n"
+				print "I:#{i}\n"
+				print "JUMP:#{jump}\n"
+				print "JUMP[0]:#{jump[0]}\n"
+				# puts "MOVE:#{([jump[0] + tmp[i][0], jump[1] + tmp[i][1]])}"
+				@move_type.push([jump[0] + @move_type[i][0], jump[1] + @move_type[i][1]])
+				i+=1
+			end
+			
+		end
+		return @move_type
+
+	end
 
 	def available_moves(destination, spot = @location, next_jumps = [], trail = {})
 		super

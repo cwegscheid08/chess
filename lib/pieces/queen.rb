@@ -12,17 +12,26 @@ class Queen < GamePieces
 	end
 
 	def move_to(destination)
-		moves = available_moves(destination)
+		moves = available_moves(destination)	
 		puts "YOU'RE AT #{self.location}"
 	end
 
 	def set_move_type
-		@move_type = [[-1,1],[0,1],[1,1],[1,0],[0,-1],[-1,-1]]
-		8.times do |x|
-			tmp = @move_type
-			tmp[0].each { |y| y+=x+1 }
-			puts "TMP:#{tmp}"
-			# moves << tmp
+		@move_type = [[-1,1],[0,1],[1,1],[1,0],[1,-1],[0,-1],[-1,-1],[-1,0]]
+		tmp = [[-1,1],[0,1],[1,1],[1,0],[1,-1],[0,-1],[-1,-1],[-1,0]]
+		i = 0
+		6.times do |x|
+			tmp.each do |jump|
+				# puts "TMP:#{tmp[x][1]} X:#{x} JUMP:#{jump[0]}"
+				print "TMP:#{tmp}\n"
+				print "X:#{x}\n"
+				print "I:#{i}\n"
+				print "JUMP:#{jump}\n"
+				print "JUMP[0]:#{jump[0]}\n"
+				# puts "MOVE:#{([jump[0] + tmp[i][0], jump[1] + tmp[i][1]])}"
+				@move_type.push([jump[0] + @move_type[i][0], jump[1] + @move_type[i][1]])
+				i+=1
+			end
 			
 		end
 		return @move_type
