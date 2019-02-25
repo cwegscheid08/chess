@@ -47,25 +47,14 @@ class Board
 
 
 	def display
-		puts " _______________________________"
+		puts "  _______________________________"
 		8.times do |x|
-			y = 0
-			
-
-
-			print "|   |   |   |   |   |   |   |   |\n"
-			# print "|   |   |   |   |   |   |   |   |\n"
-			print "| #{@board["Row #{x}"][[x,y]] == nil ? " " : @board["Row #{x}"][[x,y]].icon} |"
-			print " #{@board["Row #{x}"][[x,y+1]] == nil ? " " : @board["Row #{x}"][[x,y+1]].icon} |"
-			print " #{@board["Row #{x}"][[x,y+2]] == nil ? " " : @board["Row #{x}"][[x,y+2]].icon} |"
-			print " #{@board["Row #{x}"][[x,y+3]] == nil ? " " : @board["Row #{x}"][[x,y+3]].icon} |"
-			print " #{@board["Row #{x}"][[x,y+4]] == nil ? " " : @board["Row #{x}"][[x,y+4]].icon} |"
-			print " #{@board["Row #{x}"][[x,y+5]] == nil ? " " : @board["Row #{x}"][[x,y+5]].icon} |"
-			print " #{@board["Row #{x}"][[x,y+6]] == nil ? " " : @board["Row #{x}"][[x,y+6]].icon} |"
-			print " #{@board["Row #{x}"][[x,y+7]] == nil ? " " : @board["Row #{x}"][[x,y+7]].icon} |\n"
-			print "|___|___|___|___|___|___|___|___|\n"
-			
+			print " |   |   |   |   |   |   |   |   |\n"
+			print "#{(x+65).chr}| #{@board["Row #{x}"][[x,0]] == nil ? " " : @board["Row #{x}"][[x,0]].icon} |"
+			7.times { |y| print " #{@board["Row #{x}"][[x,y+1]] == nil ? " " : @board["Row #{x}"][[x,y+1]].icon} |" }
+			print "\n |___|___|___|___|___|___|___|___|\n"
 		end
+		puts "   1   2   3   4   5   6   7   8  "
 	end
 
 	def set_board
