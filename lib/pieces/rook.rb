@@ -12,8 +12,9 @@ class Rook < GamePieces
 	end
 
 	def move_to(destination)
-		moves = available_moves(destination)
-		puts "YOU'RE AT #{self.location}"
+		super
+		# moves = available_moves(destination)
+		# puts "YOU'RE AT #{self.location}"
 	end
 
 	def set_move_type

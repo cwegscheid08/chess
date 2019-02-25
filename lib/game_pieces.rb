@@ -18,15 +18,21 @@ class GamePieces
 		return [@pawn_1, @pawn_2, @pawn_3, @pawn_4, @pawn_5, @pawn_6, @pawn_7, @pawn_8, @knight_1, @knight_2, @bishop_1, @bishop_2, @rook_1, @rook_2, @queen, @king]
 	end
 
+	def move_to(destination)
+		moves = available_moves(destination)
+		puts "MOVES:#{moves}"	
+		puts "YOU'RE AT #{self.location}"
+	end
+
 	def display_path(path)
 		path.reverse.each_with_index do |jump, index|
 			if index == 0
-				puts "YOU JUMPED FROM #{jump} "
+				# puts "YOU JUMPED FROM #{jump} "
 			elsif index == path.size-1
 				@location = jump
-				puts "TO #{jump}."
+				# puts "TO #{jump}."
 			else
-				puts "TO #{jump} "
+				# puts "TO #{jump} "
 			end
 		end
 	end
@@ -73,7 +79,12 @@ class GamePieces
 			end
 		end
 		@next_available_move = trail
-		available_moves(destination, next_jumps.shift, next_jumps, trail)
+
+		return nil
+
+
+		# ENGAGE TO MOVE TO ANY AVAILABLE MOVE
+		# available_moves(destination, next_jumps.shift, next_jumps, trail)
 	end
 
 	def on_board?(jump)

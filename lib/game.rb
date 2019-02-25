@@ -14,9 +14,10 @@ class Game
 	end
 
 	def round(move = nil)
-		@board.display
+		# @board.display
 		move.nil? ? move = who_is_playing.move : ""
 		puts "MOVE:#{move}"
+		@board.slider(move[1]).color == who_is_playing.side_color ? (puts "THAT'S NOT A VALID MOVE"; round) : @board.delete(move[1])
 		@board.slider(move[0]).move_to(move[1])
 		@board.delete(move[0])
 		@board.set_board 
@@ -47,6 +48,7 @@ class Game
 
 	def start
 		until game_over? || @board.check?
+			@board.display
 			@p1_turn ? @p1_turn = false : @p1_turn = true
 			round
 		end
