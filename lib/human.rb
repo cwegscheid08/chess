@@ -10,13 +10,16 @@ class Human
 
 	def move
 		puts "#{@name.capitalize}, jump from which cell??"
-		from = gets.chomp.split(" ")
+		from = gets.chomp.split(//)
+		from.delete(" ")
+		from[0] = from[0].upcase.ord-65
+		from[1] = from[1].to_i-1
 		puts "to which cell??"
-		to = gets.chomp.split(" ")
+		to = gets.chomp.split(//)
+		to.delete(" ")
+		to[0] = to[0].upcase.ord-65
+		to[1] = to[1].to_i-1
 		from = [from, to]
-		# puts "FROM:#{from} TO:#{to}"
-		from.each { |x| x.map! { |y| y.to_i }}
-		# puts "FROM:#{from}"
 		return from
 	end
 

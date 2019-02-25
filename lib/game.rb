@@ -19,7 +19,7 @@ class Game
 		puts "MOVE:#{move}"
 		@board.slider(move[0]).move_to(move[1])
 		@board.delete(move[0])
-		@board.set_board
+		@board.set_board 
 		return @board.slider(move[1])
 		
 		# guess = who_is_playing.guess
@@ -46,7 +46,7 @@ class Game
 	end
 
 	def start
-		until game_over? || @board.checkmate?
+		until game_over? || @board.check?
 			@p1_turn ? @p1_turn = false : @p1_turn = true
 			round
 		end
