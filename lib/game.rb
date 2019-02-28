@@ -29,6 +29,8 @@ class Game
 		# puts "MOVE:#{move}"
 
 		if my_piece?(move[0]) && !my_piece?(move[1]) && move_available?(move[0], move[1])
+			# !@board.slider(move[1]).nil? ? who_is_playing.pieces.each_piece.delete_if { |x| x == @board.slider(move[1])} : ""
+			jump_piece(move[1])
 			@board.delete(move[1])
 			@board.slider(move[0]).move_to(move[1])
 			@board.delete(move[0])
@@ -42,6 +44,17 @@ class Game
 	def game_over?
 		@board.checkmate?
 		# true
+	end
+
+	def jump_piece(defense)
+		# !@board.slider(defense).nil? ? other_player.pieces.each_piece.delete(@board.slider(defense)) : ""
+		if !@board.slider(defense).nil?
+			puts "DELETING:#{@board.slider(defense)}"
+			puts "PIECES:#{other_player.pieces.each_piece.each {|x| print "#{x} "}}"
+			puts "DELETE DELETE DELETE\n\n\n"
+			other_player.pieces.each_piece.delete(@board.slider(defense))
+			puts "PIECES:#{other_player.pieces.each_piece.each {|x| print "#{x} "}}"
+		end
 	end
 
 	def along_path?(location, destination)
@@ -67,6 +80,10 @@ class Game
 
 	def who_is_playing
 		@p1_turn ? @player_1 : @player_2
+	end
+
+	def other_player
+		@p1_turn ? @player_2 : @player_1
 	end
 
 	def save_game

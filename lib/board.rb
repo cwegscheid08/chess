@@ -34,6 +34,7 @@ class Board
 	end
 
 	def delete(cell)
+		# return slider(cell) = nil
 		return @board["Row #{cell[0]}"][cell] = nil
 		# return @board["Row #{cell[0]}"][cell].nil? ? "" : @board["Row #{cell[0]}"][cell].location = nil
 	end
@@ -58,6 +59,7 @@ class Board
 	end
 
 	def set_board(player)
+		# puts "PIECES:#{player.pieces.each_piece.each { |x| puts x }}"
 		player.pieces.each_piece.each do |piece|
 			if !piece.nil?
 				@board["Row #{piece.location[0]}"][piece.location] = piece
