@@ -1,5 +1,5 @@
 class GamePieces
-	attr_reader :location, :color, :move_type, :next_available_move, :each_piece, :knight_1, :knight_2, :pawn_1, :pawn_2, :pawn_3, :pawn_4, :pawn_5, :pawn_6, :pawn_7, :pawn_8, :bishop_1, :bishop_2, :rook_1, :rook_2, :queen, :king
+	attr_reader :location, :color, :move_type, :next_available_move, :knight_1, :knight_2, :pawn_1, :pawn_2, :pawn_3, :pawn_4, :pawn_5, :pawn_6, :pawn_7, :pawn_8, :bishop_1, :bishop_2, :rook_1, :rook_2, :queen, :king
 
 	require './lib/pieces/knight.rb'
 	require './lib/pieces/pawn.rb'
@@ -16,11 +16,12 @@ class GamePieces
 	end
 
 
-	def set_each_piece
-		@each_piece = []
-		@each_piece.push([@pawn_1, @pawn_2, @pawn_3, @pawn_4, @pawn_5, @pawn_6, @pawn_7, @pawn_8, @knight_1, @knight_2, @bishop_1, @bishop_2, @rook_1, @rook_2, @queen, @king])
-		return @each_piece
-		# return [@pawn_1, @pawn_2, @pawn_3, @pawn_4, @pawn_5, @pawn_6, @pawn_7, @pawn_8, @knight_1, @knight_2, @bishop_1, @bishop_2, @rook_1, @rook_2, @queen, @king]
+	# def set_each_piece
+	def each_piece
+		# @each_piece = []
+		# @each_piece.push([@pawn_1, @pawn_2, @pawn_3, @pawn_4, @pawn_5, @pawn_6, @pawn_7, @pawn_8, @knight_1, @knight_2, @bishop_1, @bishop_2, @rook_1, @rook_2, @queen, @king])
+		# return @each_piece
+		return [@pawn_1, @pawn_2, @pawn_3, @pawn_4, @pawn_5, @pawn_6, @pawn_7, @pawn_8, @knight_1, @knight_2, @bishop_1, @bishop_2, @rook_1, @rook_2, @queen, @king]
 	end
 
 	def move_to(destination)
