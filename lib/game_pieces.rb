@@ -1,5 +1,5 @@
 class GamePieces
-	attr_reader :location, :color, :move_type, :next_available_move, :knight_1, :knight_2, :pawn_1, :pawn_2, :pawn_3, :pawn_4, :pawn_5, :pawn_6, :pawn_7, :pawn_8, :bishop_1, :bishop_2, :rook_1, :rook_2, :queen, :king
+	attr_reader :each_piece, :location, :color, :move_type, :next_available_move, :knight_1, :knight_2, :pawn_1, :pawn_2, :pawn_3, :pawn_4, :pawn_5, :pawn_6, :pawn_7, :pawn_8, :bishop_1, :bishop_2, :rook_1, :rook_2, :queen, :king
 
 	require './lib/pieces/knight.rb'
 	require './lib/pieces/pawn.rb'
@@ -17,12 +17,12 @@ class GamePieces
 
 
 	# def set_each_piece
-	def each_piece
-		# @each_piece = []
-		# @each_piece.push([@pawn_1, @pawn_2, @pawn_3, @pawn_4, @pawn_5, @pawn_6, @pawn_7, @pawn_8, @knight_1, @knight_2, @bishop_1, @bishop_2, @rook_1, @rook_2, @queen, @king])
-		# return @each_piece
-		return [@pawn_1, @pawn_2, @pawn_3, @pawn_4, @pawn_5, @pawn_6, @pawn_7, @pawn_8, @knight_1, @knight_2, @bishop_1, @bishop_2, @rook_1, @rook_2, @queen, @king]
-	end
+	# # def each_piece
+	# 	@each_piece = []
+	# 	@each_piece.push([@pawn_1, @pawn_2, @pawn_3, @pawn_4, @pawn_5, @pawn_6, @pawn_7, @pawn_8, @knight_1, @knight_2, @bishop_1, @bishop_2, @rook_1, @rook_2, @queen, @king])
+	# 	return @each_piece
+	# 	# return [@pawn_1, @pawn_2, @pawn_3, @pawn_4, @pawn_5, @pawn_6, @pawn_7, @pawn_8, @knight_1, @knight_2, @bishop_1, @bishop_2, @rook_1, @rook_2, @queen, @king]
+	# end
 
 	def move_to(destination)
 		moves = available_moves(destination)
@@ -143,40 +143,42 @@ class GamePieces
 	def place_pieces(color)
 		if color == "red"
 			# puts "RED\n\n\n"
-			@pawn_1 = Pawn.new([1,0], color)
-			@pawn_2 = Pawn.new([1,1], color)
-			@pawn_3 = Pawn.new([1,2], color)
-			@pawn_4 = Pawn.new([1,3], color)
-			@pawn_5 = Pawn.new([1,4], color)
-			@pawn_6 = Pawn.new([1,5], color)
-			@pawn_7 = Pawn.new([1,6], color)
-			@pawn_8 = Pawn.new([1,7], color)
-			@knight_1 = Knight.new([0,1], color)
-			@knight_2 = Knight.new([0,6], color)
-			@bishop_1 = Bishop.new([0,2], color)
-			@bishop_2 = Bishop.new([0,5], color)
-			@rook_1 = Rook.new([0,0], color)
-			@rook_2 = Rook.new([0,7], color)
-			@queen = Queen.new([0,3], color)
-			@king = King.new([0,4], color)
+			@each_piece = Array.new
+			@each_piece.push(@pawn_1 = Pawn.new([1,0], color))
+			@each_piece.push(@pawn_2 = Pawn.new([1,1], color))
+			@each_piece.push(@pawn_3 = Pawn.new([1,2], color))
+			@each_piece.push(@pawn_4 = Pawn.new([1,3], color))
+			@each_piece.push(@pawn_5 = Pawn.new([1,4], color))
+			@each_piece.push(@pawn_6 = Pawn.new([1,5], color))
+			@each_piece.push(@pawn_7 = Pawn.new([1,6], color))
+			@each_piece.push(@pawn_8 = Pawn.new([1,7], color))
+			@each_piece.push(@knight_1 = Knight.new([0,1], color))
+			@each_piece.push(@knight_2 = Knight.new([0,6], color))
+			@each_piece.push(@bishop_1 = Bishop.new([0,2], color))
+			@each_piece.push(@bishop_2 = Bishop.new([0,5], color))
+			@each_piece.push(@rook_1 = Rook.new([0,0], color))
+			@each_piece.push(@rook_2 = Rook.new([0,7], color))
+			@each_piece.push(@queen = Queen.new([0,3], color))
+			@each_piece.push(@king = King.new([0,4], color))
 		else
 			# puts "BLACK\n\n\n"
-			@pawn_1 = Pawn.new([6,0], color)
-			@pawn_2 = Pawn.new([6,1], color)
-			@pawn_3 = Pawn.new([6,2], color)
-			@pawn_4 = Pawn.new([6,3], color)
-			@pawn_5 = Pawn.new([6,4], color)
-			@pawn_6 = Pawn.new([6,5], color)
-			@pawn_7 = Pawn.new([6,6], color)
-			@pawn_8 = Pawn.new([6,7], color)
-			@knight_1 = Knight.new([7,1], color)
-			@knight_2 = Knight.new([7,6], color)
-			@bishop_1 = Bishop.new([7,2], color)
-			@bishop_2 = Bishop.new([7,5], color)
-			@rook_1 = Rook.new([7,0], color)
-			@rook_2 = Rook.new([7,7], color)
-			@queen = Queen.new([7,3], color)
-			@king = King.new([7,4], color)
+			@each_piece = Array.new
+			@each_piece.push(@pawn_1 = Pawn.new([6,0], color))
+			@each_piece.push(@pawn_2 = Pawn.new([6,1], color))
+			@each_piece.push(@pawn_3 = Pawn.new([6,2], color))
+			@each_piece.push(@pawn_4 = Pawn.new([6,3], color))
+			@each_piece.push(@pawn_5 = Pawn.new([6,4], color))
+			@each_piece.push(@pawn_6 = Pawn.new([6,5], color))
+			@each_piece.push(@pawn_7 = Pawn.new([6,6], color))
+			@each_piece.push(@pawn_8 = Pawn.new([6,7], color))
+			@each_piece.push(@knight_1 = Knight.new([7,1], color))
+			@each_piece.push(@knight_2 = Knight.new([7,6], color))
+			@each_piece.push(@bishop_1 = Bishop.new([7,2], color))
+			@each_piece.push(@bishop_2 = Bishop.new([7,5], color))
+			@each_piece.push(@rook_1 = Rook.new([7,0], color))
+			@each_piece.push(@rook_2 = Rook.new([7,7], color))
+			@each_piece.push(@queen = Queen.new([7,3], color))
+			@each_piece.push(@king = King.new([7,4], color))
 		end
 	end
 end
