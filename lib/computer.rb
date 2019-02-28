@@ -10,13 +10,9 @@ class Computer
 	end
 
 	def move
-		puts "\n\nI'M THINKING...\n"
-		# sleep(1)
-		
-	end
-
-	def randomizer
-
+		piece = @pieces.each_piece[rand(15)]
+		destination = [rand(7), rand(7)]
+		return [@pieces.each_piece[rand(15)].location, destination]
 	end
 
 	def set_game_pieces

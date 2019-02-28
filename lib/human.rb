@@ -9,7 +9,7 @@ class Human
 	end
 
 	def move
-		puts "#{@name.capitalize}, jump from which cell??"
+		puts "#{@name.capitalize}, you have the #{side_color} pieces.\nJump from which cell??"
 		from = gets.chomp.split(//)
 		from.delete(" ")
 		from[0] = from[0].upcase.ord-65

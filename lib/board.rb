@@ -7,7 +7,8 @@ class Board
 		@player_1 = player_1
 		@player_2 = player_2
 		@board = build_board
-		set_board
+		set_board(@player_1)
+		set_board(@player_2)
 	end
 
 	def build_board
@@ -29,11 +30,12 @@ class Board
 	end
 
 	def slider(cell)
-		return @board["Row #{cell[0]}"][cell] 
+		return @board["Row #{cell[0]}"][cell]
 	end
 
 	def delete(cell)
 		return @board["Row #{cell[0]}"][cell] = nil
+		# return @board["Row #{cell[0]}"][cell].nil? ? "" : @board["Row #{cell[0]}"][cell].location = nil
 	end
 
 	def check?
@@ -43,8 +45,6 @@ class Board
 	def checkmate?
 		false
 	end
-
-
 
 	def display
 		puts "  _______________________________"
@@ -57,15 +57,8 @@ class Board
 		puts "   1   2   3   4   5   6   7   8  "
 	end
 
-	def set_board
-		@player_1.pieces.each_piece.each do |piece|
-			# puts "PIECE:#{piece}\n\n"
-			if !piece.nil?
-				@board["Row #{piece.location[0]}"][piece.location] = piece
-			end
-		end
-		@player_2.pieces.each_piece.each do |piece|
-			# puts "PIECE:#{piece}\n\n"
+	def set_board(player)
+		player.pieces.each_piece.each do |piece|
 			if !piece.nil?
 				@board["Row #{piece.location[0]}"][piece.location] = piece
 			end

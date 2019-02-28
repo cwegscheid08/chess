@@ -17,8 +17,6 @@ class Pawn < GamePieces
 
 	def move_to(destination)
 		super
-		# moves = available_moves(destination)
-		# puts "YOU'RE AT #{self.location}"
 	end
 
 

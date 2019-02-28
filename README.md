@@ -39,25 +39,47 @@ Houses parent information for each following GamePiece, as well as instructions 
 ### TESTING
 
 #### BOARD
-#####DISPLAY
-#####CHECK?
-#####CHECK_MATE? 
+#check?
+#check_mate?
 
 #### GAME
-#####PLAYER_1
-#####PLAYER_2
-#####GAME_OVER?
-#####ROUND
+#player_1
+#player_2
+#game_over?
+#round
 
 #### HUMAN
-#####MOVE
-#####NAME
-#####PLAYER_SET
+#move
+#name
+#player_set
 
 #### COMPUTER
-#####MOVE
-#####NAME
-#####PLAYER_SET
+#move
+#name
+#player_set
 
 #### GAME_PIECES
+
+
+
+### NEXT MOVES
+
+I currently have an application that builds an 8x8 chess board that sets each individual chess pieces in their correct spot on the board based on player_1 or player_2. Each piece has the correct set of moves programmed into them and can move and reset the board.  
+
+STILL TO DO:
+
+each piece can jump and over write the other piece, which will delete that piece(The pawn must be able to only jump something that is diagonal to them)
+
+The methods #check? or #check_mate? need to be written.
+
+some sort of check in so that pieces can't jump pieces with their own color
+
+if move is not in first round of moves, move can't be made
+
+if the path along the movement is not all nil, must return to player that that move is not allowed
+
+save and load methods need to be loaded with individual save state information.
+
+
+
 

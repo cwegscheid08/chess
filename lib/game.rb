@@ -13,24 +13,30 @@ class Game
 		@board = Board.new(@player_1, @player_2)
 	end
 
+	def start
+		until game_over? || @board.check?
+			@board.display
+			round
+			@p1_turn ? @p1_turn = false : @p1_turn = true
+		end
+		@board.display
+		@board.full? ? no_more_turns : player_wins
+	end
+
 	def round(move = nil)
-		# @board.display
-		move.nil? ? move = who_is_playing.move : ""
-		puts "MOVE:#{move}"
-		@board.slider(move[1]).color == who_is_playing.side_color ? (puts "THAT'S NOT A VALID MOVE"; round) : @board.delete(move[1])
-		@board.slider(move[0]).move_to(move[1])
-		@board.delete(move[0])
-		@board.set_board 
-		return @board.slider(move[1])
-		
-		# guess = who_is_playing.guess
+		move.nil? ? move = who_is_playing.move : move
 		# move = who_is_playing.move
-		# if !@board.column_full?("column_#{guess}")
-			# @board.place_piece(who_is_playing, guess)
-		# else
-			# puts "THIS COLUMN IS FULL\nPICK ANOTHER ONE\n\n"
-			# round
-		# end
+		# puts "MOVE:#{move}"
+
+		if my_piece?(move[0]) && !my_piece?(move[1]) && move_available?(move[0], move[1])
+			@board.delete(move[1])
+			@board.slider(move[0]).move_to(move[1])
+			@board.delete(move[0])
+			@board.set_board(who_is_playing)
+			return @board.slider(move[1]) 
+		else
+			error
+		end
 	end
 
 	def game_over?
@@ -38,22 +44,25 @@ class Game
 		# true
 	end
 
+	def along_path?(location, destination)
+
+	end
+
+	def move_available?(location, destination)
+		@board.slider(location).available_moves(destination) == destination ? true : false
+	end
+
 	def player_wins
 		return "#{who_is_playing.name.upcase} WINS!!!"
 	end
 
-	def no_more_turns
-		return "THE BOARD IS FULL.\n\nGAME OVER"
+	def my_piece?(cell)
+		(!@board.slider(cell).nil? && @board.slider(cell).color == who_is_playing.side_color) ? true : false
 	end
 
-	def start
-		until game_over? || @board.check?
-			@board.display
-			@p1_turn ? @p1_turn = false : @p1_turn = true
-			round
-		end
-		@board.display
-		@board.full? ? no_more_turns : player_wins
+	def error
+		print who_is_playing.class == Human ? "THAT'S NOT A VALID MOVE" : ""
+		round
 	end
 
 	def who_is_playing

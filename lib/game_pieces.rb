@@ -1,5 +1,5 @@
 class GamePieces
-	attr_reader :location, :color, :move_type, :next_available_move, :knight_1, :knight_2, :pawn_1, :pawn_2, :pawn_3, :pawn_4, :pawn_5, :pawn_6, :pawn_7, :pawn_8, :bishop_1, :bishop_2, :rook_1, :rook_2, :queen, :king
+	attr_reader :location, :color, :move_type, :next_available_move, :each_piece, :knight_1, :knight_2, :pawn_1, :pawn_2, :pawn_3, :pawn_4, :pawn_5, :pawn_6, :pawn_7, :pawn_8, :bishop_1, :bishop_2, :rook_1, :rook_2, :queen, :king
 
 	require './lib/pieces/knight.rb'
 	require './lib/pieces/pawn.rb'
@@ -12,44 +12,57 @@ class GamePieces
 		@color = color
 		@location = location
 		@move_type = move_type
+		# available_moves
 	end
 
-	def each_piece
-		return [@pawn_1, @pawn_2, @pawn_3, @pawn_4, @pawn_5, @pawn_6, @pawn_7, @pawn_8, @knight_1, @knight_2, @bishop_1, @bishop_2, @rook_1, @rook_2, @queen, @king]
+
+	def set_each_piece
+		@each_piece = []
+		@each_piece.push([@pawn_1, @pawn_2, @pawn_3, @pawn_4, @pawn_5, @pawn_6, @pawn_7, @pawn_8, @knight_1, @knight_2, @bishop_1, @bishop_2, @rook_1, @rook_2, @queen, @king])
+		return @each_piece
+		# return [@pawn_1, @pawn_2, @pawn_3, @pawn_4, @pawn_5, @pawn_6, @pawn_7, @pawn_8, @knight_1, @knight_2, @bishop_1, @bishop_2, @rook_1, @rook_2, @queen, @king]
 	end
 
 	def move_to(destination)
 		moves = available_moves(destination)
-		puts "MOVES:#{moves}"	
+		# puts "MOVES:#{moves}"	
+		# puts "MOVE_NIL#{moves.nil?}"
+		# puts "NEXT_AVAILABLE_MOVE:#{self.next_available_move}"
+		puts "JUMPED FROM #{self.location}"
+		# self.location = moves
+		# !moves.nil? ? @location = moves : ""
+		@location = moves
 		puts "YOU'RE AT #{self.location}"
+		return moves
 	end
 
-	def display_path(path)
-		path.reverse.each_with_index do |jump, index|
-			if index == 0
-				# puts "YOU JUMPED FROM #{jump} "
-			elsif index == path.size-1
-				@location = jump
-				# puts "TO #{jump}."
-			else
-				# puts "TO #{jump} "
-			end
-		end
-	end
+	# def display_path(path)
+	# 	path.reverse.each_with_index do |jump, index|
+	# 		if index == 0
+	# 			# puts "YOU JUMPED FROM #{jump} "
+	# 		elsif index == path.size-1
+	# 			@location = jump
+	# 			# puts "TO #{jump}."
+	# 			return jump
+	# 		else
+	# 			# puts "TO #{jump} "
+	# 		end
+	# 	end
+	# end
 
-	def set_path(destination, ary = [])
-		@next_available_move.each do |key, value| 
-			value.each do |x|
-				if ary[-1].eql?(@location)
-					return ary
-				elsif x.eql?(destination)
-					ary.push(x)
-					set_path(key, ary)
-				end
-			end
-		end
-		return ary
-	end
+	# def set_path(destination, ary = [])
+	# 	@next_available_move.each do |key, value| 
+	# 		value.each do |x|
+	# 			if ary[-1].eql?(@location)
+	# 				return ary
+	# 			elsif x.eql?(destination)
+	# 				ary.push(x)
+	# 				set_path(key, ary)
+	# 			end
+	# 		end
+	# 	end
+	# 	return ary
+	# end
 
 	def available_moves(destination, spot = @location, next_jumps = [], trail = {})
 		# puts "SPOT:#{spot} DESTINATION:#{destination}"
@@ -71,17 +84,38 @@ class GamePieces
 	
 			if temp_spot[0] == destination[0] && temp_spot[1] == destination[1]
 				@next_available_move = trail
-				set_moves
-				path = set_path(destination)
-				display_path(path)
-				@location = destination
-				return @next_available_move
+				# set_moves
+				# path = set_path(destination)
+				# display_path(path)
+				# puts "TRAIL:#{trail}"
+				# puts "NEXT_AVAILABLE_MOVE:#{@next_available_move}"
+				# @location = destination
+				# return @next_available_move
+				return destination
 			end
 		end
-		@next_available_move = trail
 
-		return nil
+		return @location
 
+		# if !@next_available_move.has_value?(destination)
+		# 	return nil
+		# end
+
+
+
+		# if trail.has_value?(destination)
+		# 	@next_available_move = trail
+			# puts "TRAIL:#{trail}"
+			# puts "NEXT_AVAILABLE_MOVE:#{@next_available_move}"
+		# 	# set_moves
+		# 	@location = destination
+		# end
+
+		# @next_available_move = trail
+
+		# return nil
+
+		# return @next_available_move
 
 		# ENGAGE TO MOVE TO ANY AVAILABLE MOVE
 		# available_moves(destination, next_jumps.shift, next_jumps, trail)
