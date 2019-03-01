@@ -19,7 +19,6 @@ class Pawn < GamePieces
 		super
 	end
 
-
 	def available_moves(destination, spot = @location, next_jumps = [], trail = {})
 		super
 	end 

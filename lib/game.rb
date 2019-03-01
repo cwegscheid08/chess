@@ -28,7 +28,7 @@ class Game
 		# move = who_is_playing.move
 		# puts "MOVE:#{move}"
 
-		if my_piece?(move[0]) && !my_piece?(move[1]) && move_available?(move[0], move[1])
+		if my_piece?(move[0]) && !my_piece?(move[1]) && move_available?(move[0], move[1]) && !along_path?(@board.slider(move[0]), move[1])
 			# !@board.slider(move[1]).nil? ? who_is_playing.pieces.each_piece.delete_if { |x| x == @board.slider(move[1])} : ""
 			jump_piece(move[1])
 			@board.delete(move[1])
@@ -46,19 +46,46 @@ class Game
 		# true
 	end
 
-	def jump_piece(defense)
-		# !@board.slider(defense).nil? ? other_player.pieces.each_piece.delete(@board.slider(defense)) : ""
-		if !@board.slider(defense).nil?
-			puts "DELETING:#{@board.slider(defense)}"
-			puts "PIECES:#{other_player.pieces.each_piece.each {|x| print "#{x} "}}"
-			puts "DELETE DELETE DELETE\n\n\n"
-			other_player.pieces.each_piece.delete(@board.slider(defense))
-			puts "PIECES:#{other_player.pieces.each_piece.each {|x| print "#{x} "}}"
+	def along_path?(piece, destination)
+		print "PIECE:#{piece}\n"
+		print "LOCATION:#{piece.location}\n"
+		print "NEXT AVAILABE MOVES:#{piece.available_moves(destination)}\n"
+		# print "NEXT AVAILABE MOVES:#{piece.available_moves(destination)}\n"
+		print "DESTINATION:#{destination}\n"
+
+		
+		trail = []
+
+		piece.move_type.each_with_index do |move, i|
+			tmp = [piece.location[0] + move[0], piece.location[1] + move[1]]
+			piece.on_board?(tmp) && @board.slider(tmp).nil? ? trail.push(tmp) : ""
 		end
+
+		# 8.times do |i|
+			# tmp = piece.location
+			# puts "I#{i}"
+			# tmp.each_with_index do |x,y|
+			# 	puts "X:#{x} Y:#{y} DIRECTIONS:#{directions[i]} TMP:#{tmp}\n"
+			# 	x += directions[i][y]
+			# end
+
+		# 	puts "TMP:#{tmp}"
+		# 	trail.push(tmp)
+		# 	puts "TRAIL:#{trail}"
+		# 	tmp == destination ? trail : ""
+		# end
+
+		puts "TRAIL:#{trail.to_a}"
+		puts "SORT:#{trail.sort.to_a}"
+		puts "SORT SORT:#{trail.sort.sort.to_a}"
+
+		trail.any? != nil ? true : false
+
+		# false
 	end
 
-	def along_path?(location, destination)
-
+	def jump_piece(defense)
+		!@board.slider(defense).nil? ? other_player.pieces.each_piece.delete(@board.slider(defense)) : ""
 	end
 
 	def move_available?(location, destination)
@@ -84,6 +111,42 @@ class Game
 
 	def other_player
 		@p1_turn ? @player_2 : @player_1
+	end
+
+	def up
+		[1,0]
+	end
+
+	def down
+		[-1,0]
+	end
+
+	def left
+		[0,-1]
+	end
+
+	def right
+		[0,1]
+	end
+
+	def up_left
+		[1,-1]
+	end
+
+	def up_right
+		[1,1]
+	end
+
+	def down_right
+		[-1,1]
+	end
+
+	def down_left
+		[-1,-1]
+	end
+
+	def directions
+		[up, down, left, right, up_left, up_right, down_left, down_right]
 	end
 
 	def save_game
