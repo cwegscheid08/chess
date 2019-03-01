@@ -10,9 +10,9 @@ class Computer
 	end
 
 	def move
-		piece = @pieces.each_piece[rand(15)]
+		piece = @pieces.each_piece[rand(@pieces.each_piece.size)]
 		destination = [rand(7), rand(7)]
-		return [@pieces.each_piece[rand(15)].location, destination]
+		return [@pieces.each_piece[rand(@pieces.each_piece.size)].location, destination]
 	end
 
 	def set_game_pieces
