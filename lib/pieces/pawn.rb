@@ -5,6 +5,7 @@ class Pawn < GamePieces
 		super
 		@move_type = set_move_type
 		@icon = set_icon
+		starting_location = location
 	end
 
 	def set_icon

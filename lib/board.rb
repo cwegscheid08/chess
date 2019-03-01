@@ -34,9 +34,7 @@ class Board
 	end
 
 	def delete(cell)
-		# return slider(cell) = nil
 		return @board["Row #{cell[0]}"][cell] = nil
-		# return @board["Row #{cell[0]}"][cell].nil? ? "" : @board["Row #{cell[0]}"][cell].location = nil
 	end
 
 	def check?
