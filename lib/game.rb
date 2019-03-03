@@ -41,7 +41,7 @@ class Game
 		else
 			error
 		end
-		print check ? "\nYOU ARE IN CHECK!!!\n" : ""
+		print check? ? "\nYOU ARE IN CHECK!!!\n" : ""
 	end
 
 	def game_over?
@@ -249,14 +249,6 @@ class Game
 			:player_1 => @player_1,
 			:player_2 => @player_2,
 			:board => @board
-
-			# :player_name => player.name,
-			# :past_guesses => board.past_letters,
-			# :board => board.body,
-			# :wrong => board.wrong_count,
-			# :board_secret => board.secret,
-			# :computer => computer.code,
-			# :round => round.round_number
 		})
 
 		File.open(filename, "w") { |file| file.puts data }
@@ -266,8 +258,6 @@ class Game
 	end
 
 	def load_game
-
-
 
 		save_file = Dir.open("./file_save/")
 		puts "\nCURRENT SAVES:\n"
@@ -283,14 +273,6 @@ class Game
 			@player_1 = data[:player_1]
 			@player_2 = data[:player_2]
 			@board = data[:board]
-
-
-			# board.guessed = data[:past_guesses]
-			# board.body = data[:board]
-			# board.wrong_count = data[:wrong]
-			# computer.code = data[:computer]
-			# board.secret = data[:board_secret]
-			# round.round_number = data[:round]
 
 			puts "\n\n\n\n#{board.display}\n#{previous_save.upcase} LOADED!!!\n\n"
 			start
