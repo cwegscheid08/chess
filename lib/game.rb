@@ -4,6 +4,7 @@ class Game
 	require './lib/board.rb'
 	require './lib/human.rb'
 	require './lib/computer.rb'
+	require 'yaml'
 
 
 	def initialize(player_1, player_2 = "computer")
@@ -14,13 +15,14 @@ class Game
 	end
 
 	def start
-		until checkmate?
+		until game_over?
 			@board.display
 			round
 			@p1_turn ? @p1_turn = false : @p1_turn = true
 		end
 		@board.display
-		@board.full? ? no_more_turns : player_wins
+		# @board.full? ? no_more_turns : player_wins
+		player_wins
 	end
 
 	def round(move = nil)
@@ -39,10 +41,11 @@ class Game
 		else
 			error
 		end
+		print check ? "\nYOU ARE IN CHECK!!!\n" : ""
 	end
 
 	def game_over?
-		# @board.checkmate?
+		@board.checkmate?
 		# true
 	end
 
@@ -142,10 +145,11 @@ class Game
 		return trail.any? {|x| !x.nil? } ? true : false
 	end
 
-	def check?
+	def check?(cell = other_player.pieces.king.location)
 		who_is_playing.pieces.each_piece.each do |piece|
 			# along_path?(piece, other_player.pieces.king.location)
-			if (piece.available_moves(other_player.pieces.king.location) == other_player.pieces.king.location) && !along_path?(piece, other_player.pieces.king.location)
+			# if (piece.available_moves(other_player.pieces.king.location) == other_player.pieces.king.location) && !along_path?(piece, other_player.pieces.king.location)
+			if (piece.available_moves(cell) == cell) && !along_path?(piece, cell)
 				return true
 			end
 		end
@@ -153,7 +157,12 @@ class Game
 	end
 
 	def checkmate?
-		false
+		other_player.pieces.king.move_type.each do |move|
+			if other_player.pieces.king.available_moves(move) != other_player.pieces.king.location && check?(other_player.pieces.king.available_moves(move))
+				return false
+			end
+		end
+		true
 	end
 
 	def jump_piece(defense)
@@ -237,13 +246,17 @@ class Game
 		# AREA FOR INPUTTING GAME SAVE CHARACTERISTICS
 
 		data = YAML::dump ({
-			:player_name => player.name,
-			:past_guesses => board.past_letters,
-			:board => board.body,
-			:wrong => board.wrong_count,
-			:board_secret => board.secret,
-			:computer => computer.code,
-			:round => round.round_number
+			:player_1 => @player_1,
+			:player_2 => @player_2,
+			:board => @board
+
+			# :player_name => player.name,
+			# :past_guesses => board.past_letters,
+			# :board => board.body,
+			# :wrong => board.wrong_count,
+			# :board_secret => board.secret,
+			# :computer => computer.code,
+			# :round => round.round_number
 		})
 
 		File.open(filename, "w") { |file| file.puts data }
@@ -267,16 +280,20 @@ class Game
 
 			# AREA FOR INPUTTING GAME SAVE CHARACTERISTICS
 			
-			player.name = data[:player_name]
-			board.guessed = data[:past_guesses]
-			board.body = data[:board]
-			board.wrong_count = data[:wrong]
-			computer.code = data[:computer]
-			board.secret = data[:board_secret]
-			round.round_number = data[:round]
+			@player_1 = data[:player_1]
+			@player_2 = data[:player_2]
+			@board = data[:board]
+
+
+			# board.guessed = data[:past_guesses]
+			# board.body = data[:board]
+			# board.wrong_count = data[:wrong]
+			# computer.code = data[:computer]
+			# board.secret = data[:board_secret]
+			# round.round_number = data[:round]
 
 			puts "\n\n\n\n#{board.display}\n#{previous_save.upcase} LOADED!!!\n\n"
-			start_game
+			start
 		else
 			puts "\nFILE DOESN'T EXIST\n"
 			load_game
