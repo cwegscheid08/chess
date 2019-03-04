@@ -184,12 +184,13 @@ class Game
 	end
 
 	def checkmate?
-		other_player.pieces.king.move_type.each do |move|
-			if other_player.pieces.king.available_moves(move) != other_player.pieces.king.location && check?(other_player.pieces.king.available_moves(move))
-				return true
-			end
+		who_is_playing.pieces.king.move_type.each do |move|
+			# if !check?(who_is_playing.king.available_moves(move))
+			# 	return false
+			# end
+			return !check?(who_is_playing.king.available_moves(move)) ? false : ""
 		end
-		false
+		true
 	end
 
 	def jump_piece(attack, defense)
