@@ -14,10 +14,10 @@ class Pawn < GamePieces
 
 	def set_move_type
 		if @first_move == true
-			@color == "red" ? @move_type = [[2,0],[1,0]] : @move_type = [[-2,0],[-1,0]]
+			@color == "red" ? @move_type = [[2,0],[1,0],[1,-1],[1,1]] : @move_type = [[-2,0],[-1,0],[-1,-1],[-1,1]]
 			@first_move = false
 		else
-			@color == "red" ? @move_type = [[1,0]] : @move_type = [[-1,0]]
+			@color == "red" ? @move_type = [[1,0],[1,-1],[1,1]] : @move_type = [[-1,0],[-1,-1],[-1,1]]
 		end
 	end
 
