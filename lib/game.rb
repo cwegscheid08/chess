@@ -69,7 +69,7 @@ class Game
 			# print "DIRECTION LEFT TO RIGHT:#{left} #{right} TRAIL:#{trail.to_a} TMP:#{tmp.to_a} PIECE LOCATION#{piece.location}\n"
 			
 			if piece.location[1] < destination[1]
-				puts "RIGHT PIECE:#{piece.class}"
+				# puts "RIGHT PIECE:#{piece.class}"
 				8.times do 
 					jump = [trail[-1], right].transpose.map {|x| x.sum}
 					piece.on_board?(jump) ? trail.push(jump) : ""
@@ -78,7 +78,7 @@ class Game
 					break if trail[-1] == destination
 				end
 			elsif piece.location[1] > destination[1]
-				puts "LEFT PIECE:#{piece.class}"
+				# puts "LEFT PIECE:#{piece.class}"
 				8.times do
 					jump = [trail[-1], left].transpose.map {|x| x.sum}
 					piece.on_board?(jump) ? trail.push(jump) : ""
@@ -92,7 +92,7 @@ class Game
 			
 			if piece.location[0] > destination[0]
 				8.times do
-					puts "UP PIECE:#{piece.class}"
+					# puts "UP PIECE:#{piece.class}"
 					jump = [trail[-1], up].transpose.map {|x| x.sum}
 					piece.on_board?(jump) ? trail.push(jump) : ""
 					# trail.push(jump)
@@ -101,7 +101,7 @@ class Game
 				end
 			elsif piece.location[0] < destination[0]
 				8.times do
-					puts "DOWN PIECE:#{piece.class}"
+					# puts "DOWN PIECE:#{piece.class}"
 					jump = [trail[-1], down].transpose.map {|x| x.sum}
 					piece.on_board?(jump) ? trail.push(jump) : ""
 					# trail.push(jump)
@@ -110,7 +110,7 @@ class Game
 				end
 			end
 		elsif piece.location[0] < destination[0] && piece.location[1] > destination[1]
-			print "DIRECTION PIECE:#{piece.class} DOWN_LEFT:#{down_left} TRAIL:#{trail.to_a} TMP:#{tmp.to_a} PIECE LOCATION#{piece.location}\n"
+			# print "DIRECTION PIECE:#{piece.class} DOWN_LEFT:#{down_left} TRAIL:#{trail.to_a} TMP:#{tmp.to_a} PIECE LOCATION#{piece.location}\n"
 			8.times do 
 				jump = [trail[-1], down_left].transpose.map {|x| x.sum}
 				piece.on_board?(jump) ? trail.push(jump) : ""
@@ -119,7 +119,7 @@ class Game
 				break if trail[-1] == destination
 			end
 		elsif piece.location[0] < destination[0] && piece.location[1] < destination[1]
-			print "DIRECTION PIECE:#{piece.class} DOWN_RIGHT:#{down_right} TRAIL:#{trail.to_a} TMP:#{tmp.to_a} PIECE LOCATION#{piece.location}\n"
+			# print "DIRECTION PIECE:#{piece.class} DOWN_RIGHT:#{down_right} TRAIL:#{trail.to_a} TMP:#{tmp.to_a} PIECE LOCATION#{piece.location}\n"
 			8.times do 
 				jump = [trail[-1], down_right].transpose.map {|x| x.sum}
 				piece.on_board?(jump) ? trail.push(jump) : ""
@@ -128,7 +128,7 @@ class Game
 				break if trail[-1] == destination
 			end
 		elsif piece.location[0] > destination[0] && piece.location[1] > destination[1]
-			print "DIRECTION PIECE:#{piece.class} UP_LEFT:#{up_left} TRAIL:#{trail.to_a} TMP:#{tmp.to_a} PIECE LOCATION#{piece.location}\n"
+			# print "DIRECTION PIECE:#{piece.class} UP_LEFT:#{up_left} TRAIL:#{trail.to_a} TMP:#{tmp.to_a} PIECE LOCATION#{piece.location}\n"
 			8.times do 
 				jump = [trail[-1], up_left].transpose.map {|x| x.sum}
 				piece.on_board?(jump) ? trail.push(jump) : ""
@@ -137,7 +137,7 @@ class Game
 				break if trail[-1] == destination
 			end
 		elsif piece.location[0] > destination[0] && piece.location[1] < destination[1]
-			print "DIRECTION PIECE:#{piece.class} UP_RIGHT:#{up_right} TRAIL:#{trail.to_a} TMP:#{tmp.to_a} PIECE LOCATION#{piece.location}\n"
+			# print "DIRECTION PIECE:#{piece.class} UP_RIGHT:#{up_right} TRAIL:#{trail.to_a} TMP:#{tmp.to_a} PIECE LOCATION#{piece.location}\n"
 			8.times do 
 				jump = [trail[-1], up_right].transpose.map {|x| x.sum}
 				piece.on_board?(jump) ? trail.push(jump) : ""
@@ -149,15 +149,18 @@ class Game
 		trail.shift
 		
 		# trail = []
-		print "TRAIL:#{trail.to_a}\n"
+		# print "TRAIL:#{trail.to_a}\n"
 
 
 
-		trail.map! {|x| (print "SLIDER:#{@board.slider(x)}\n"; @board.slider(x)) }
+		# trail.map! {|x| (print "SLIDER:#{@board.slider(x)}\n"; @board.slider(x)) }
+		trail.map! {|x| @board.slider(x) }
 
 		if !trail[-1].nil? && trail[-1].color != who_is_playing.side_color
 			trail.pop
 		end
+
+		trail[-1].class == King && trail[-1].color == who_is_playing.side_color ? trail.pop : ""
 
 		# puts "TRAIL:#{trail.to_a}"
 
@@ -165,9 +168,14 @@ class Game
 	end
 
 	def check?(cell = who_is_playing.pieces.king.location)
+		# puts "CELL:#{cell}"
 		other_player.pieces.each_piece.each do |piece|
+			# puts "PIECE:#{piece}"
+			# puts "AVAILABLE MOVE:#{piece.available_moves(cell)}"
+			# puts "ALONG PATH:#{along_path?(piece, cell)}"
 			# along_path?(piece, other_player.pieces.king.location)
-			# if (piece.available_moves(other_player.pieces.king.location) == other_player.pieces.king.location) && !along_path?(piece, other_player.pieces.king.location)
+			# puts (piece.available_moves(cell) == cell) && !along_path?(piece, cell)
+			# (piece.available_moves(cell) == cell) && !along_path?(piece, cell) ? true : ""
 			if (piece.available_moves(cell) == cell) && !along_path?(piece, cell)
 				return true
 			end
@@ -185,23 +193,19 @@ class Game
 	end
 
 	def jump_piece(attack, defense)
-		# if @board.slider(attack).class != Pawn
-			!@board.slider(defense).nil? ? other_player.pieces.each_piece.delete(@board.slider(defense)) : ""
-		# elsif @board.slider(attack.class) == Pawn
-			# !@board.slider(defense).nil? ? other_player.pieces.each_piece.delete(@board.slider(defense)) : ""
-		# end
+		!@board.slider(defense).nil? ? other_player.pieces.each_piece.delete(@board.slider(defense)) : ""
 	end
 
 	def move_available?(location, destination)
-		puts "LOCATION:#{location} DESTINATION:#{destination} "
+		# puts "LOCATION:#{location} DESTINATION:#{destination} "
 		if @board.slider(location).class != Pawn
 			return @board.slider(location).available_moves(destination) == destination ? true : false
 		elsif @board.slider(location).class == Pawn
 			if location[1] - destination[1] == 0
-				puts "UP UP UP/DOWN DOWN DOWN"
+				# puts "UP UP UP/DOWN DOWN DOWN"
 				return @board.slider(location).available_moves(destination) == destination && @board.slider(destination).nil? ? true : false
 			else
-				puts "DIAGONAL DIAGONAL DIAGONAL"
+				# puts "DIAGONAL DIAGONAL DIAGONAL"
 				puts (@board.slider(location).available_moves(destination) == destination) && !@board.slider(destination).nil? && (@board.slider(destination).color != @board.slider(location).color)
 				return (@board.slider(location).available_moves(destination) == destination) && !@board.slider(destination).nil? && (@board.slider(destination).color != @board.slider(location).color) ? true : false					# return true
 				# end
