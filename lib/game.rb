@@ -1,5 +1,5 @@
 class Game
-	attr_accessor :board, :player_1, :player_2, :p1_turn
+	attr_accessor :board, :player_1, :player_2, :p1_turn, :game_over
 
 	require './lib/board.rb'
 	require './lib/human.rb'
@@ -15,11 +15,16 @@ class Game
 	end
 
 	def start
-		until checkmate?
+		# @game_over = false
+		# until checkmate?
+		loop do
+			break if check? && checkmate?
 			@board.display
 			print check? ? "\nYOU ARE IN CHECK!!!\n" : ""
 			round
+
 			@p1_turn ? @p1_turn = false : @p1_turn = true
+
 		end
 		@board.display
 		# @board.full? ? no_more_turns : player_wins
@@ -184,13 +189,106 @@ class Game
 	end
 
 	def checkmate?
-		who_is_playing.pieces.king.move_type.each do |move|
-			# if !check?(who_is_playing.king.available_moves(move))
+		king = who_is_playing.pieces.king
+		# puts "KING:#{king}"
+		tmp = []
+		king.move_type.each do |move|
+			# tmp = []
+			# if !check?(who_is_playing.pieces.king.available_moves(move))
 			# 	return false
 			# end
-			return !check?(who_is_playing.king.available_moves(move)) ? false : ""
+			jump = [king.location, move].transpose.map {|x| x.sum}
+			if king.on_board?(jump) && king.available_moves(jump) == jump && !along_path?(king, jump) && !check?(jump)
+				tmp.push([king.location, move].transpose.map {|x| x.sum})
+			else
+				# tmp.push(nil)
+			end
+
+			# puts "LOCATION:#{king.location}"
+			# puts "JUMP:#{jump}"
+			# puts "MOVE:#{move}"
+			# puts "TMP:#{tmp}"
+			# puts "NIL:#{tmp.nil?}"
+			# puts "AVAILABLE MOVE:#{king.available_moves(tmp)}"
+			# !tmp.nil? && check?(king.available_moves(move)) ? false : ""
 		end
-		true
+
+		attackers = []
+		other_player.pieces.each_piece.each do |piece|
+			# puts "PIECE:#{piece}"
+			# puts "AVAILABLE MOVE:#{piece.available_moves(cell)}"
+			# puts "ALONG PATH:#{along_path?(piece, cell)}"
+			# along_path?(piece, other_player.pieces.king.location)
+			# puts (piece.available_moves(cell) == cell) && !along_path?(piece, cell)
+			# (piece.available_moves(cell) == cell) && !along_path?(piece, cell) ? true : ""
+			if (piece.available_moves(king.location) == king.location) && !along_path?(piece, king.location)
+				attackers.push(piece)
+			end
+		end
+
+		who_is_playing.pieces.each_piece.each do |piece|
+			# puts "PIECE:#{piece}"
+			piece.move_type.each do |move|
+				jump = [piece.location, move].transpose.map {|x| x.sum}
+				
+				# puts "MOVE:#{move}"
+				# puts "JUMP:#{jump}"
+				# puts "ON BOARD:#{piece.on_board?(jump)}"
+				# puts "AVAILABLE JUMP:#{piece.available_moves(jump)}"
+				# puts "ALONG PATH:#{along_path?(piece, jump)}"
+				# puts "YOUR PIECE:#{@board.slider(jump).color != who_is_playing.side_color}"
+
+				if piece.on_board?(jump) && piece.available_moves(jump) == jump && !along_path?(piece, jump) #&& (!@board.slider(jump).nil? && @board.slider(jump).color != who_is_playing.side_color)
+					# puts "\n\n\n\nATTACKERS:#{attackers.to_a}"
+					if in_between(king, attackers, jump)
+						tmp.push(jump)
+					end
+				end
+				# puts "TMP:#{tmp}"
+			end
+		end
+		# puts "TMP:#{tmp}"
+		# puts "NIL:#{tmp.empty?}"
+		return tmp.empty? ? true : false
+		# true
+	end
+
+	def in_between(defender, attackers, cell)
+		# puts "ATTACKER:#{attackers}"
+		# puts "DEFENDER:#{defender}"
+		# puts "CELL:#{cell}"
+		
+		tmp = []
+		attackers.each do |attacker|
+
+			directions.each do |direction|
+				
+				tmp.push(attacker.location)
+				8.times do 
+					# puts "DIRECTION:#{direction}"
+					place = [tmp[-1], direction].transpose.map {|x| x.sum }
+					# puts "PLACE:#{place}"
+					if attacker.on_board?(place) && attacker.available_moves(place) == place
+						tmp.push(place)
+					end
+					# puts "TMP:#{tmp}"
+				end
+				# tmp.map! {|x| @board.slider(x) }
+				# puts "TMP:#{tmp}"
+				# tmp.shift
+				if tmp.include?(defender.location) && tmp.include?(cell) && tmp.size >= 3
+					# puts "TRUE"
+					return true
+				else 
+					tmp = []
+				end
+				# tmp.include?(defender.location) && tmp.include?(cell) ? (return true) : tmp = []
+			end
+			# return tmp.include?(defender.location) && tmp.include?(cell) ? tmp : tmp = []
+		end
+		# puts "TMP:#{tmp}"
+		# return tmp.include?(defender.location) && tmp.include?(cell) ? true : false
+		false
 	end
 
 	def jump_piece(attack, defense)
@@ -216,7 +314,7 @@ class Game
 	end
 
 	def player_wins
-		return "#{who_is_playing.name.upcase} WINS!!!"
+		return "#{other_player.name.upcase} WINS!!!"
 	end
 
 	def my_piece?(cell)

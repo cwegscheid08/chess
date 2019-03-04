@@ -33,16 +33,10 @@ class Board
 		return @board["Row #{cell[0]}"][cell]
 	end
 
+	
+
 	def delete(cell)
 		return @board["Row #{cell[0]}"][cell] = nil
-	end
-
-	def check?
-		false
-	end
-
-	def checkmate?
-		false
 	end
 
 	def display
